@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Comparativo Epóxicos - Hilti vs Competencia</title>
+
+  <!-- PWA Configuration -->
+  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkhpbHRpIENvbXBhcmF0aXZvIEVww7N4aWNvcyIsCiAgInNob3J0X25hbWUiOiAiSGlsdGkgRXDDs3hpY29zIiwKICAiZGVzY3JpcHRpb24iOiAiQ29tcGFyYXRpdm8gdMOpY25pY28gZGUgZXDDs3hpY29zIEhpbHRpIHZzIENvbXBldGVuY2lhIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmZjQ3NTciLAogICJ0aGVtZV9jb2xvciI6ICIjZmY0NzU3IiwKICAib3JpZW50YXRpb24iOiAiYW55IiwKICAiY2F0ZWdvcmllcyI6IFsicHJvZHVjdGl2aXR5IiwgImJ1c2luZXNzIl0sCiAgImxhbmciOiAiZXMiLAogICJzY29wZSI6ICIvIgp9">
+  <meta name="theme-color" content="#ff4757">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Hilti Epóxicos">
+
+  <!-- FAVICONS -->
+  <link rel="icon" href="favicon/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="favicon/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png" sizes="180x180">
+
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; overflow: hidden; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            padding: 10px; 
+            touch-action: manipulation; 
+            display: flex;
+            flex-direction: column;
+        }
+        .container { 
+            max-width: 100%; 
+            height: 100%;
+            margin: 0 auto; 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 15px; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden;
+        }
+        .header { 
+            background: linear-gradient(135deg, #ff4757, #c44569); 
+            color: white; 
+            padding: 15px 20px; 
+            text-align: center; 
+            flex-shrink: 0; 
+            position: relative;
+        }
+        .pwa-badge {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .controls { 
+            padding: 15px 20px; 
+            background: #f8f9fa; 
+            border-bottom: 1px solid #dee2e6; 
+            flex-shrink: 0; 
+        }
+        .filter-section { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            align-items: flex-end; 
+            margin-bottom: 15px; 
+        }
+        .filter-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 5px; 
+            min-width: 150px; 
+            flex: 1; 
+        }
+        .filter-group label { 
+            font-weight: 600; 
+            color: #495057; 
+            font-size: 0.85rem; 
+        }
+        select, button { 
+            padding: 8px 12px; 
+            border: 2px solid #dee2e6; 
+            border-radius: 8px; 
+            font-size: 0.85rem; 
+            transition: all 0.3s ease; 
+            width: 100%; 
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, #ff4757, #c44569); 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: 600; 
+            white-space: nowrap; 
+        }
+        .btn-secondary { 
+            background: #6c757d; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            white-space: nowrap; 
+        }
+        .button-group { 
+            display: flex; 
+            gap: 10px; 
+            flex-wrap: wrap; 
+        }
+        .table-container { 
+            overflow: auto; 
+            flex: 1; 
+            position: relative; 
+            border: 2px solid #dee2e6; 
+            border-radius: 10px; 
+            margin: 15px 20px 20px 20px; 
+            -webkit-overflow-scrolling: touch;
+        }
+        table { 
+            border-collapse: separate; 
+            border-spacing: 0; 
+            background: white; 
+            table-layout: fixed;
+            width: auto;
+        }
+        .sticky-header { 
+            position: sticky; 
+            top: 0; 
+            z-index: 10; 
+            background: #ff4757; 
+            color: white; 
+        }
+        .sticky-column { 
+            position: sticky; 
+            left: 0; 
+            z-index: 5; 
+            background: #fff; 
+            border-right: 2px solid #ff4757; 
+            width: 200px;
+            min-width: 200px;
+        }
+        .sticky-header.sticky-column { 
+            z-index: 15; 
+            background: #ff4757; 
+            color: white; 
+        }
+        .hilti-column { 
+            background: rgba(255, 71, 87, 0.1); 
+            border-right: 2px solid #ff4757; 
+            width: 120px;
+            min-width: 120px;
+        }
+        
+        th, td { 
+            padding: 12px 8px; 
+            text-align: center; 
+            border-bottom: 1px solid #dee2e6; 
+            font-size: 0.75rem; 
+            white-space: normal; 
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            vertical-align: top;
+            width: 120px;
+            min-width: 120px;
+            position: relative;
+            border-right: 1px solid #dee2e6;
+        }
+        
+        th:hover::after, td:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -2px;
+            width: 4px;
+            height: 100%;
+            background: #007bff;
+            cursor: col-resize;
+            z-index: 20;
+        }
+        
+        th { 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            font-size: 0.7rem; 
+        }
+        .hilti-header { 
+            background: #ff4757 !important; 
+            color: white; 
+        }
+        .competitor-header { 
+            background: #495057; 
+            color: white; 
+        }
+        .performance-stars { 
+            color: #ffc107; 
+            font-size: 1rem; 
+        }
+        .check-mark { 
+            color: #28a745; 
+            font-size: 1.2rem; 
+        }
+        .cross-mark { 
+            color: #dc3545; 
+            font-size: 1.2rem; 
+        }
+        .temperature-range { 
+            background: linear-gradient(90deg, #e3f2fd, #bbdefb); 
+            border-radius: 4px; 
+            padding: 4px; 
+        }
+        tr:nth-child(even) { 
+            background-color: #f8f9fa; 
+        }
+        tr:hover { 
+            background-color: rgba(255, 71, 87, 0.05); 
+        }
+        .hidden-column { 
+            display: none !important; 
+        }
+        .concrete-cracked {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid #ffc107;
+        }
+        .concrete-uncracked {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid #28a745;
+        }
+        .concrete-both {
+            background: linear-gradient(45deg, rgba(40, 167, 69, 0.2) 50%, rgba(255, 193, 7, 0.2) 50%);
+            border: 1px solid #6c757d;
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 5px; }
+            .container { border-radius: 10px; }
+            .header { padding: 10px 15px; }
+            .controls { padding: 10px 15px; }
+            .filter-section { flex-direction: column; gap: 10px; }
+            .filter-group { min-width: auto; }
+            .table-container { margin: 10px 15px 15px 15px; }
+            th, td { 
+                padding: 8px 6px; 
+                font-size: 0.7rem; 
+                width: 100px;
+                min-width: 100px;
+            }
+            .sticky-column { 
+                width: 150px !important;
+                min-width: 150px !important;
+            }
+        }
+        @media (hover: none) and (pointer: coarse) {
+            select, button { padding: 12px; font-size: 16px; min-height: 44px; }
+            th, td { padding: 10px 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="pwa-badge">⏬ Descarga App</div>
+            <h1>🎯Comparativo Epóxicos</h1>
+            <p>Hilti vs Competencia - Análisis Técnico</p>
+        </div>
+
+        <div class="controls">
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label for="brandFilter">Filtrar por Marca:</label>
+                    <select id="brandFilter">
+                        <option value="all">Mostrar Todas</option>
+                        <option value="simpson">Simpson</option>
+                        <option value="iwt">IWT</option>
+                        <option value="wurth">WURTH</option>
+                        <option value="sika">Sika</option>
+                        <option value="ejot">EJOT</option>
+                        <option value="dewalt">DeWalt</option>
+                        <option value="redhead">RedHead</option>
+                        <option value="dayton">Dayton</option>
+                        <option value="toxement">Toxement</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="productFilter">Producto Específico:</label>
+                    <select id="productFilter">
+                        <option value="all">Todos los Productos</option>
+                    </select>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn-primary" onclick="applyFilters()">Aplicar Filtros</button>
+                    <button class="btn-secondary" onclick="resetFilters()">Limpiar Todo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="comparisonTable">
+                <thead>
+                    <tr>
+                        <th class="sticky-header sticky-column">Características</th>
+                        <th class="sticky-header hilti-header hilti-column">Hilti RE 500 V3</th>
+                        <th class="sticky-header hilti-header hilti-column">Hilti HY 200-R V3</th>
+                        <th class="sticky-header hilti-header hilti-column">Hilti RE 100</th>
+                        <th class="sticky-header hilti-header hilti-column">Hilti HY 100</th>
+                        <th class="sticky-header competitor-header" data-brand="simpson" data-product="set-xp">Simpson SET XP</th>
+                        <th class="sticky-header competitor-header" data-brand="simpson" data-product="set-3g">Simpson SET 3G</th>
+                        <th class="sticky-header competitor-header" data-brand="iwt" data-product="c6+">IWT C6+</th>
+                        <th class="sticky-header competitor-header" data-brand="wurth" data-product="pe500">WURTH PE500</th>
+                        <th class="sticky-header competitor-header" data-brand="wurth" data-product="pe1000">WURTH PE1000</th>
+                        <th class="sticky-header competitor-header" data-brand="sika" data-product="anchorfix-3030">Sika Anchorfix 3030</th>
+                        <th class="sticky-header competitor-header" data-brand="sika" data-product="anchorfix-3001">Sika Anchorfix 3001</th>
+                        <th class="sticky-header competitor-header" data-brand="sika" data-product="anchor-fix-4">Sika Anchor fix 4</th>
+                        <th class="sticky-header competitor-header" data-brand="ejot" data-product="multifix-se1000">EJOT Multifix SE1000</th>
+                        <th class="sticky-header competitor-header" data-brand="dewalt" data-product="pure-220+">DeWalt Pure 220+</th>
+                        <th class="sticky-header competitor-header" data-brand="dewalt" data-product="ac200+">DeWalt AC200+</th>
+                        <th class="sticky-header competitor-header" data-brand="dewalt" data-product="pure-110+">DeWalt Pure 110+</th>
+                        <th class="sticky-header competitor-header" data-brand="dewalt" data-product="pure-50+">DeWalt PURE 50+</th>
+                        <th class="sticky-header competitor-header" data-brand="redhead" data-product="epcon-g5+">RedHead EPCON G5+</th>
+                        <th class="sticky-header competitor-header" data-brand="dayton" data-product="j51">Dayton J51</th>
+                        <th class="sticky-header competitor-header" data-brand="dayton" data-product="elite-pro">Dayton Elite pro</th>
+                        <th class="sticky-header competitor-header" data-brand="toxement" data-product="euco-452">Toxement EUCO 452</th>
+                        <th class="sticky-header competitor-header" data-brand="toxement" data-product="euco-455">Toxement EUCO 455</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="sticky-column" style="font-weight: bold;">Rendimiento</td><td class="hilti-column"><span class="performance-stars">★★★★★</span></td><td class="hilti-column"><span class="performance-stars">★★★★★</span></td><td class="hilti-column"><span class="performance-stars">★★★</span></td><td class="hilti-column"><span class="performance-stars">★★★</span></td><td data-brand="simpson" data-product="set-xp"><span class="performance-stars">★★★</span></td><td data-brand="simpson" data-product="set-3g"><span class="performance-stars">★★★</span></td><td data-brand="iwt" data-product="c6+"><span class="performance-stars">★★★★</span></td><td data-brand="wurth" data-product="pe500"><span class="performance-stars">★★★</span></td><td data-brand="wurth" data-product="pe1000"><span class="performance-stars">★★★★★</span></td><td data-brand="sika" data-product="anchorfix-3030"><span class="performance-stars">★★★★</span></td><td data-brand="sika" data-product="anchorfix-3001"><span class="performance-stars">★★★</span></td><td data-brand="sika" data-product="anchor-fix-4"><span class="performance-stars">★</span></td><td data-brand="ejot" data-product="multifix-se1000"><span class="performance-stars">★</span></td><td data-brand="dewalt" data-product="pure-220+"><span class="performance-stars">★★★★★</span></td><td data-brand="dewalt" data-product="ac200+"><span class="performance-stars">★★★★</span></td><td data-brand="dewalt" data-product="pure-110+"><span class="performance-stars">★★★★</span></td><td data-brand="dewalt" data-product="pure-50+"><span class="performance-stars">★★★★</span></td><td data-brand="redhead" data-product="epcon-g5+"><span class="performance-stars">★★</span></td><td data-brand="dayton" data-product="j51"><span class="performance-stars">★</span></td><td data-brand="dayton" data-product="elite-pro"><span class="performance-stars">★★★</span></td><td data-brand="toxement" data-product="euco-452"><span class="performance-stars">★</span></td><td data-brand="toxement" data-product="euco-455"><span class="performance-stars">★</span></td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Aprobación ICC para Ref post inst</td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-xp"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-3g"><span class="check-mark">✓</span></td><td data-brand="iwt" data-product="c6+"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe500"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe1000"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchorfix-3030">Solo ETA</td><td data-brand="sika" data-product="anchorfix-3001"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchor-fix-4"><span class="cross-mark">✗</span></td><td data-brand="ejot" data-product="multifix-se1000"><span class="cross-mark">✗<br>(Solo ETA)</span></td><td data-brand="dewalt" data-product="pure-220+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="ac200+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-110+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-50+"><span class="check-mark">✓</span></td><td data-brand="redhead" data-product="epcon-g5+"><span class="check-mark">✓</span></td><td data-brand="dayton" data-product="j51"><span class="cross-mark">✗</span></td><td data-brand="dayton" data-product="elite-pro"><span class="cross-mark">✗</span></td><td data-brand="toxement" data-product="euco-452"><span class="cross-mark">✗</span></td><td data-brand="toxement" data-product="euco-455"><span class="cross-mark">✗</span></td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Aprobación ICC para anclajes</td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-xp"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-3g"><span class="check-mark">✓</span></td><td data-brand="iwt" data-product="c6+"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe500"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe1000"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchorfix-3030"><span class="check-mark">✓</td><td data-brand="sika" data-product="anchorfix-3001"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchor-fix-4"><span class="cross-mark">✗</span></td><td data-brand="ejot" data-product="multifix-se1000"><span class="cross-mark">✗<br>(Solo ETA)</span></td><td data-brand="dewalt" data-product="pure-220+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="ac200+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-110+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-50+"><span class="check-mark">✓</span></td><td data-brand="redhead" data-product="epcon-g5+"><span class="check-mark">✓</span></td><td data-brand="dayton" data-product="j51"><span class="cross-mark">✗</span></td><td data-brand="dayton" data-product="elite-pro"><span class="check-mark">✓</span></td><td data-brand="toxement" data-product="euco-452"><span class="cross-mark">✗</span></td><td data-brand="toxement" data-product="euco-455"><span class="cross-mark">✗</span></td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Método de perforación</td><td class="hilti-column">Percusion+Broca-Hueca+Diamante</td><td class="hilti-column">Percusion+Broca-Hueca+Diamante</td><td class="hilti-column">Percusion+Broca-Hueca+Diamante</td><td class="hilti-column">Broca-Taladro-Percusión</td><td data-brand="simpson" data-product="set-xp">Percusion+Broca-Hueca</td><td data-brand="simpson" data-product="set-3g">Percusion+Broca-Hueca</td><td data-brand="iwt" data-product="c6+">Percusion+Diamante</td><td data-brand="wurth" data-product="pe500">Percusion+Diamante</td><td data-brand="wurth" data-product="pe1000">Percusion+Broca-Hueca+Diamante</td><td data-brand="sika" data-product="anchorfix-3030">Broca Percusion</td><td data-brand="sika" data-product="anchorfix-3001">Broca Percusión</td><td data-brand="sika" data-product="anchor-fix-4">Broca Percusion</td><td data-brand="ejot" data-product="multifix-se1000">Percusion+Broca-Hueca+Diamante</td><td data-brand="dewalt" data-product="pure-220+">Percusion+Broca-Hueca+Diamante</td><td data-brand="dewalt" data-product="ac200+">Percusion+Broca-Hueca</td><td data-brand="dewalt" data-product="pure-110+">Percusion+Broca-Hueca+Diamante</td><td data-brand="dewalt" data-product="pure-50+">Percusion+Broca-Hueca</td><td data-brand="redhead" data-product="epcon-g5+">Broca Percusión</td><td data-brand="dayton" data-product="j51">Ficha no especifíca</td><td data-brand="dayton" data-product="elite-pro">Percusion+Broca-Hueca+Diamante</td><td data-brand="toxement" data-product="euco-452">Ficha no especifíca</td><td data-brand="toxement" data-product="euco-455">Ficha no especifíca</td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Condición de Hormigón</td><td class="hilti-column concrete-both">Fisurado y No Fisurado</td><td class="hilti-column concrete-both">Fisurado y No Fisurado</td><td class="hilti-column concrete-both">Fisurado y No Fisurado</td><td class="hilti-column concrete-both">Fisurado y No Fisurado</td><td data-brand="simpson" data-product="set-xp" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="simpson" data-product="set-3g" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="iwt" data-product="c6+" class="concrete-uncracked">Hormigón no fisurado</td><td data-brand="wurth" data-product="pe500" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="wurth" data-product="pe1000" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="sika" data-product="anchorfix-3030" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="sika" data-product="anchorfix-3001" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="sika" data-product="anchor-fix-4" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="ejot" data-product="multifix-se1000" class="concrete-cracked">Hormigón fisurado</td><td data-brand="dewalt" data-product="pure-220+" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="dewalt" data-product="ac200+" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="dewalt" data-product="pure-110+" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="dewalt" data-product="pure-50+" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="redhead" data-product="epcon-g5+" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="dayton" data-product="j51">Ficha no especifica</td><td data-brand="dayton" data-product="elite-pro" class="concrete-both">Fisurado y No Fisurado</td><td data-brand="toxement" data-product="euco-452">Ficha no especifica</td><td data-brand="toxement" data-product="euco-455">Ficha no especifica</td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Aprobación sísmica</td><td class="hilti-column">Sismo (Cat. A-F)</td><td class="hilti-column">Sismo (Cat. A-F)</td><td class="hilti-column">Sismo (Cat. A-F)</td><td class="hilti-column">Sismo (Cat. A-F)</td><td data-brand="simpson" data-product="set-xp">Sismo (Cat. A-F)</td><td data-brand="simpson" data-product="set-3g">Sismo (Cat. A-F)</td><td data-brand="iwt" data-product="c6+">Sismo (Cat. A-F)</td><td data-brand="wurth" data-product="pe500">Sismo (Cat. A-F)</td><td data-brand="wurth" data-product="pe1000">Sismo (Cat. A-F)</td><td data-brand="sika" data-product="anchorfix-3030">Sismo (Cat. A-F)</td><td data-brand="sika" data-product="anchorfix-3001">Sismo (Cat. A-F)</td><td data-brand="sika" data-product="anchor-fix-4">Sismo (Cat. A-F)</td><td data-brand="ejot" data-product="multifix-se1000">Sismo (C1, C2)</td><td data-brand="dewalt" data-product="pure-220+">Sismo (Cat. A-F)</td><td data-brand="dewalt" data-product="ac200+">Sismo (Cat. A-F)</td><td data-brand="dewalt" data-product="pure-110+">Sismo (Cat. A-F)</td><td data-brand="dewalt" data-product="pure-50+">Sismo (Cat. A-F)</td><td data-brand="redhead" data-product="epcon-g5+">Sismo (Cat. A-F)</td><td data-brand="dayton" data-product="j51"><span class="cross-mark">✗</span></td><td data-brand="dayton" data-product="elite-pro">Sismo (Cat. A-F)</td><td data-brand="toxement" data-product="euco-452"><span class="cross-mark">✗</span></td><td data-brand="toxement" data-product="euco-455">Ficha no especifica</td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Método de limpieza</td><td class="hilti-column">2x2x2<br>Safe Set</td><td class="hilti-column">2x2x2<br>Safe Set</td><td class="hilti-column">2x2x2<br>Safe Set</td><td class="hilti-column">2x2x2<br>Safe Set</td><td data-brand="simpson" data-product="set-xp">4x4x4</td><td data-brand="simpson" data-product="set-3g">2x2x2</td><td data-brand="iwt" data-product="c6+">2x2x2</td><td data-brand="wurth" data-product="pe500">2x2x2</td><td data-brand="wurth" data-product="pe1000">2x2x2</td><td data-brand="sika" data-product="anchorfix-3030">2x2x2</td><td data-brand="sika" data-product="anchorfix-3001">2x2x2x2x2</td><td data-brand="sika" data-product="anchor-fix-4">1x1x1x1x1x1x1x1x1</td><td data-brand="ejot" data-product="multifix-se1000">2x2x2<br>Broca Hueca</td><td data-brand="dewalt" data-product="pure-220+">2x2x2<br>DustX+</td><td data-brand="dewalt" data-product="ac200+">2x2x2<br>Broca Hueca</td><td data-brand="dewalt" data-product="pure-110+">2x2x2<br>DustX+</td><td data-brand="dewalt" data-product="pure-50+">2x2x2</td><td data-brand="redhead" data-product="epcon-g5+">2x2x2<br>4x4x4</td><td data-brand="dayton" data-product="j51">Ficha no especifíca</td><td data-brand="dayton" data-product="elite-pro">2x2x2</td><td data-brand="toxement" data-product="euco-452">Ficha no especifíca</td><td data-brand="toxement" data-product="euco-455">Ficha no especifíca</td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Concreto Seco</td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-xp"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-3g"><span class="check-mark">✓</span></td><td data-brand="iwt" data-product="c6+"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe500"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe1000"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchorfix-3030"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchorfix-3001"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchor-fix-4"><span class="check-mark">✓</span></td><td data-brand="ejot" data-product="multifix-se1000"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-220+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="ac200+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-110+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-50+"><span class="check-mark">✓</span></td><td data-brand="redhead" data-product="epcon-g5+"><span class="check-mark">✓</span></td><td data-brand="dayton" data-product="j51"><span class="check-mark">✓</span></td><td data-brand="dayton" data-product="elite-pro"><span class="check-mark">✓</span></td><td data-brand="toxement" data-product="euco-452"><span class="check-mark">✓</span></td><td data-brand="toxement" data-product="euco-455"><span class="check-mark">✓</span></td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Perforación llena de agua</td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="cross-mark">✗</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-xp"><span class="cross-mark">✗</span></td><td data-brand="simpson" data-product="set-3g"><span class="check-mark">✓</span></td><td data-brand="iwt" data-product="c6+"><span class="cross-mark">✗</span></td><td data-brand="wurth" data-product="pe500"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe1000"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchorfix-3030"><span class="cross-mark">✗</span></td><td data-brand="sika" data-product="anchorfix-3001"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchor-fix-4"><span class="check-mark">✓</span></td><td data-brand="ejot" data-product="multifix-se1000"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-220+"><span class="cross-mark">✗</span></td><td data-brand="dewalt" data-product="ac200+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-110+"><span class="cross-mark">✗</span></td><td data-brand="dewalt" data-product="pure-50+"><span class="cross-mark">✗</span></td><td data-brand="redhead" data-product="epcon-g5+"><span class="cross-mark">✗</span></td><td data-brand="dayton" data-product="j51"><span class="cross-mark">✗</span></td><td data-brand="dayton" data-product="elite-pro"><span class="cross-mark">✗</span></td><td data-brand="toxement" data-product="euco-452"><span class="check-mark">✓</span></td><td data-brand="toxement" data-product="euco-455">Ficha no especifica</td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Sumergido</td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="cross-mark">✗</span></td><td class="hilti-column"><span class="cross-mark">✗</span></td><td data-brand="simpson" data-product="set-xp"><span class="cross-mark">✗</span></td><td data-brand="simpson" data-product="set-3g"><span class="cross-mark">✗</span></td><td data-brand="iwt" data-product="c6+"><span class="cross-mark">✗</span></td><td data-brand="wurth" data-product="pe500"><span class="cross-mark">✗</span></td><td data-brand="wurth" data-product="pe1000"><span class="cross-mark">✗</span></td><td data-brand="sika" data-product="anchorfix-3030"><span class="cross-mark">✗</span></td><td data-brand="sika" data-product="anchorfix-3001"><span class="cross-mark">✗</span></td><td data-brand="sika" data-product="anchor-fix-4"><span class="cross-mark">✗</span></td><td data-brand="ejot" data-product="multifix-se1000"><span class="cross-mark">✗</span></td><td data-brand="dewalt" data-product="pure-220+"><span class="cross-mark">✗</span></td><td data-brand="dewalt" data-product="ac200+"><span class="cross-mark">✗</span></td><td data-brand="dewalt" data-product="pure-110+"><span class="cross-mark">✗</span></td><td data-brand="dewalt" data-product="pure-50+"><span class="cross-mark">✗</span></td><td data-brand="redhead" data-product="epcon-g5+"><span class="cross-mark">✗</span></td><td data-brand="dayton" data-product="j51"><span class="cross-mark">✗</span></td><td data-brand="dayton" data-product="elite-pro"><span class="cross-mark">✗</span></td><td data-brand="toxement" data-product="euco-452"><span class="cross-mark">✗</span></td><td data-brand="toxement" data-product="euco-455"><span class="cross-mark">✗</span></td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Broca Hueca</td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-xp"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-3g"><span class="check-mark">✓</span></td><td data-brand="iwt" data-product="c6+"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe500"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe1000"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchorfix-3030"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchorfix-3001"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchor-fix-4"><span class="check-mark">✓</span></td><td data-brand="ejot" data-product="multifix-se1000"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-220+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="ac200+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-110+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-50+"><span class="check-mark">✓</span></td><td data-brand="redhead" data-product="epcon-g5+"><span class="check-mark">✓</span></td><td data-brand="dayton" data-product="j51"><span class="check-mark">✓</span></td><td data-brand="dayton" data-product="elite-pro"><span class="check-mark">✓</span></td><td data-brand="toxement" data-product="euco-452"><span class="check-mark">✓</span></td><td data-brand="toxement" data-product="euco-455"><span class="check-mark">✓</span></td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Broca del diamante</td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td class="hilti-column"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-xp"><span class="check-mark">✓</span></td><td data-brand="simpson" data-product="set-3g"><span class="check-mark">✓</span></td><td data-brand="iwt" data-product="c6+"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe500"><span class="check-mark">✓</span></td><td data-brand="wurth" data-product="pe1000"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchorfix-3030"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchorfix-3001"><span class="check-mark">✓</span></td><td data-brand="sika" data-product="anchor-fix-4"><span class="check-mark">✓</span></td><td data-brand="ejot" data-product="multifix-se1000"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-220+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="ac200+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-110+"><span class="check-mark">✓</span></td><td data-brand="dewalt" data-product="pure-50+"><span class="check-mark">✓</span></td><td data-brand="redhead" data-product="epcon-g5+"><span class="check-mark">✓</span></td><td data-brand="dayton" data-product="j51"><span class="check-mark">✓</span></td><td data-brand="dayton" data-product="elite-pro"><span class="check-mark">✓</span></td><td data-brand="toxement" data-product="euco-452"><span class="check-mark">✓</span></td><td data-brand="toxement" data-product="euco-455"><span class="check-mark">✓</span></td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Tiempo gelado @ 20°C</td><td class="hilti-column">25 min</td><td class="hilti-column">15 min</td><td class="hilti-column">30 min</td><td class="hilti-column">5 min</td><td data-brand="simpson" data-product="set-xp">45 min</td><td data-brand="simpson" data-product="set-3g">35 min</td><td data-brand="iwt" data-product="c6+">16 min</td><td data-brand="wurth" data-product="pe500">30 min</td><td data-brand="wurth" data-product="pe1000">30 min</td><td data-brand="sika" data-product="anchorfix-3030">18 min</td><td data-brand="sika" data-product="anchorfix-3001">15 min</td><td data-brand="sika" data-product="anchor-fix-4">35 min</td><td data-brand="ejot" data-product="multifix-se1000">30 min</td><td data-brand="dewalt" data-product="pure-220+">30 min</td><td data-brand="dewalt" data-product="ac200+">15 min</td><td data-brand="dewalt" data-product="pure-110+">25 min</td><td data-brand="dewalt" data-product="pure-50+">25 min</td><td data-brand="redhead" data-product="epcon-g5+">16 min</td><td data-brand="dayton" data-product="j51">9 min</td><td data-brand="dayton" data-product="elite-pro">16 min</td><td data-brand="toxement" data-product="euco-452">45 min</td><td data-brand="toxement" data-product="euco-455">Ficha no especifica</td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Tiempo curado @ 20°C</td><td class="hilti-column">7 hrs</td><td class="hilti-column">1.5 hrs</td><td class="hilti-column">12 hrs</td><td class="hilti-column">30 min</td><td data-brand="simpson" data-product="set-xp">24 hrs</td><td data-brand="simpson" data-product="set-3g">24 hrs</td><td data-brand="iwt" data-product="c6+">6.5 hrs</td><td data-brand="wurth" data-product="pe500">10 hrs</td><td data-brand="wurth" data-product="pe1000">12 hrs</td><td data-brand="sika" data-product="anchorfix-3030">8 hrs</td><td data-brand="sika" data-product="anchorfix-3001">8 hrs</td><td data-brand="sika" data-product="anchor-fix-4">24 hrs</td><td data-brand="ejot" data-product="multifix-se1000">12 hrs</td><td data-brand="dewalt" data-product="pure-220+">11 hrs</td><td data-brand="dewalt" data-product="ac200+">2 hrs</td><td data-brand="dewalt" data-product="pure-110+">8 hrs</td><td data-brand="dewalt" data-product="pure-50+">8 hrs</td><td data-brand="redhead" data-product="epcon-g5+">8 hrs</td><td data-brand="dayton" data-product="j51">24 hrs</td><td data-brand="dayton" data-product="elite-pro">7 hrs</td><td data-brand="toxement" data-product="euco-452">Ficha no especifica</td><td data-brand="toxement" data-product="euco-455">Ficha no especifica</td></tr>
+
+                    <tr><td class="sticky-column" style="font-weight: bold;">Rango temperatura instalación (°C)</td><td class="hilti-column"><span class="temperature-range">-5 a 40</span></td><td class="hilti-column"><span class="temperature-range">-10 a 40</span></td><td class="hilti-column"><span class="temperature-range">5 a 40</span></td><td class="hilti-column"><span class="temperature-range">-10 a 40</span></td><td data-brand="simpson" data-product="set-xp"><span class="temperature-range">10 a 43</span></td><td data-brand="simpson" data-product="set-3g"><span class="temperature-range">5 a 38</span></td><td data-brand="iwt" data-product="c6+"><span class="temperature-range">10 a 43</span></td><td data-brand="wurth" data-product="pe500"><span class="temperature-range">5 a 40</span></td><td data-brand="wurth" data-product="pe1000"><span class="temperature-range">5 a 40</span></td><td data-brand="sika" data-product="anchorfix-3030"><span class="temperature-range">5 a 40</span></td><td data-brand="sika" data-product="anchorfix-3001"><span class="temperature-range">5 a 40</span></td><td data-brand="sika" data-product="anchor-fix-4"><span class="temperature-range">4 a 32</span></td><td data-brand="ejot" data-product="multifix-se1000"><span class="temperature-range">5 a 40</span></td><td data-brand="dewalt" data-product="pure-220+"><span class="temperature-range">5 a 40</span></td><td data-brand="dewalt" data-product="ac200+"><span class="temperature-range">5 a 40</span></td><td data-brand="dewalt" data-product="pure-110+"><span class="temperature-range">5 a 40</span></td><td data-brand="dewalt" data-product="pure-50+"><span class="temperature-range">3 a 40</span></td><td data-brand="redhead" data-product="epcon-g5+"><span class="temperature-range">10 a 43</span></td><td data-brand="dayton" data-product="j51"><span class="temperature-range">5 a 38</span></td><td data-brand="dayton" data-product="elite-pro"><span class="temperature-range">6 a 43</span></td><td data-brand="toxement" data-product="euco-452"><span class="temperature-range">min. 4</span></td><td data-brand="toxement" data-product="euco-455"><span class="temperature-range">5 a 30</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE_NAME = 'hilti-epoxicos-v1';
+                const urlsToCache = ['/'];
+                
+                self.addEventListener('install', function(event) {
+                    event.waitUntil(
+                        caches.open(CACHE_NAME)
+                            .then(function(cache) {
+                                return cache.addAll(urlsToCache);
+                            })
+                    );
+                });
+                
+                self.addEventListener('fetch', function(event) {
+                    event.respondWith(
+                        caches.match(event.request)
+                            .then(function(response) {
+                                if (response) {
+                                    return response;
+                                }
+                                return fetch(event.request);
+                            })
+                    );
+                });
+            `;
+            
+            const blob = new Blob([swCode], {type: 'application/javascript'});
+            const swUrl = URL.createObjectURL(blob);
+            
+            navigator.serviceWorker.register(swUrl)
+                .then(function(registration) {
+                    console.log('PWA Service Worker registrado exitosamente');
+                })
+                .catch(function(error) {
+                    console.log('Error registrando Service Worker:', error);
+                });
+        }
+
+        // Datos de productos por marca
+        const productsByBrand = {
+            simpson: ['SET XP', 'SET 3G'],
+            iwt: ['C6+'],
+            wurth: ['PE500', 'PE1000'],
+            sika: ['Anchorfix 3030', 'Anchorfix 3001', 'Anchor fix 4'],
+            ejot: ['Multifix SE1000'],
+            dewalt: ['Pure 220+', 'AC200+', 'Pure 110+', 'PURE 50+'],
+            redhead: ['EPCON G5+'],
+            dayton: ['J51', 'Elite pro'],
+            toxement: ['EUCO 452', 'EUCO 455']
+        };
+
+        function updateProductFilter() {
+            const brandFilter = document.getElementById('brandFilter');
+            const productFilter = document.getElementById('productFilter');
+            const selectedBrand = brandFilter.value;
+            
+            productFilter.innerHTML = '<option value="all">Todos los Productos</option>';
+            
+            if (selectedBrand !== 'all' && productsByBrand[selectedBrand]) {
+                productsByBrand[selectedBrand].forEach(product => {
+                    const option = document.createElement('option');
+                    option.value = product.toLowerCase().replace(/[^a-z0-9+]/g, '-');
+                    option.textContent = product;
+                    productFilter.appendChild(option);
+                });
+            }
+        }
+
+        function applyFilters() {
+            const brandFilter = document.getElementById('brandFilter').value;
+            const productFilter = document.getElementById('productFilter').value;
+            const table = document.getElementById('comparisonTable');
+            const headers = table.querySelectorAll('th[data-brand]');
+            const rows = table.querySelectorAll('tbody tr');
+
+            headers.forEach(header => {
+                header.classList.remove('hidden-column');
+                const columnIndex = Array.from(header.parentNode.children).indexOf(header);
+                
+                rows.forEach(row => {
+                    const cell = row.children[columnIndex];
+                    if (cell) {
+                        cell.classList.remove('hidden-column');
+                    }
+                });
+            });
+
+            if (brandFilter !== 'all' || productFilter !== 'all') {
+                headers.forEach(header => {
+                    const headerBrand = header.getAttribute('data-brand');
+                    const headerProduct = header.getAttribute('data-product');
+                    let shouldHide = false;
+
+                    if (brandFilter !== 'all' && headerBrand !== brandFilter) {
+                        shouldHide = true;
+                    }
+
+                    if (productFilter !== 'all' && headerProduct !== productFilter) {
+                        shouldHide = true;
+                    }
+
+                    if (shouldHide) {
+                        header.classList.add('hidden-column');
+                        const columnIndex = Array.from(header.parentNode.children).indexOf(header);
+                        
+                        rows.forEach(row => {
+                            const cell = row.children[columnIndex];
+                            if (cell) {
+                                cell.classList.add('hidden-column');
+                            }
+                        });
+                    }
+                });
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('brandFilter').value = 'all';
+            document.getElementById('productFilter').value = 'all';
+            updateProductFilter();
+            applyFilters();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const brandFilter = document.getElementById('brandFilter');
+            brandFilter.addEventListener('change', updateProductFilter);
+            
+            // Funcionalidad para redimensionar columnas
+            let isResizing = false;
+            let currentColumn = null;
+            let startX = 0;
+            let startWidth = 0;
+
+            document.addEventListener('mousedown', function(e) {
+                const cell = e.target.closest('th, td');
+                if (!cell) return;
+                
+                const rect = cell.getBoundingClientRect();
+                const isNearRightEdge = e.clientX > rect.right - 8;
+                
+                if (isNearRightEdge) {
+                    isResizing = true;
+                    currentColumn = Array.from(cell.parentNode.children).indexOf(cell);
+                    startX = e.clientX;
+                    startWidth = cell.offsetWidth;
+                    document.body.style.cursor = 'col-resize';
+                    e.preventDefault();
+                }
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isResizing) return;
+                
+                const deltaX = e.clientX - startX;
+                const newWidth = Math.max(50, startWidth + deltaX);
+                
+                const table = document.getElementById('comparisonTable');
+                const allRows = table.querySelectorAll('tr');
+                
+                allRows.forEach(row => {
+                    const cell = row.children[currentColumn];
+                    if (cell) {
+                        cell.style.width = newWidth + 'px';
+                        cell.style.minWidth = newWidth + 'px';
+                    }
+                });
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isResizing) {
+                    isResizing = false;
+                    currentColumn = null;
+                    document.body.style.cursor = '';
+                }
+            });
+
+            // Mostrar mensaje de instalación PWA
+            window.addEventListener('beforeinstallprompt', function(e) {
+                e.preventDefault();
+                const installButton = document.createElement('button');
+                installButton.textContent = '📱 Instalar App';
+                installButton.className = 'btn-primary';
+                installButton.style.position = 'fixed';
+                installButton.style.bottom = '20px';
+                installButton.style.right = '20px';
+                installButton.style.zIndex = '1000';
+                installButton.style.borderRadius = '25px';
+                installButton.style.padding = '10px 20px';
+                
+                installButton.addEventListener('click', function() {
+                    e.prompt();
+                    e.userChoice.then(function(choiceResult) {
+                        if (choiceResult.outcome === 'accepted') {
+                            installButton.remove();
+                        }
+                    });
+                });
+                
+                document.body.appendChild(installButton);
+            });
+        });
+    </script>
+</body>
+</html>
